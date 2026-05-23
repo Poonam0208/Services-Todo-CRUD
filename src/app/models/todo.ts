@@ -1,8 +1,10 @@
 
-
-
 export interface Itodo {
    todoItem: string;
-    todoId: string;
-    isCompleted: boolean;
+    todoId: string;   
+}
+
+export interface ItodoRes {
+    msg: string;
+    data: string;
 }
