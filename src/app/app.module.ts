@@ -7,6 +7,7 @@ import { TodoDashboardComponent } from './component/todo-dashboard/todo-dashboar
 import { TodoFormComponent } from './component/todo-form/todo-form.component';
 import { TodoListComponent } from './component/todo-list/todo-list.component';
 import {MaterialModule } from './material/material.module';
+import { GetConfirmComponent } from './component/get-confirm/get-confirm.component';
 
 
 
@@ -16,6 +17,7 @@ import {MaterialModule } from './material/material.module';
     TodoDashboardComponent,
     TodoFormComponent,
     TodoListComponent,
+    GetConfirmComponent,
     
      
   ],
