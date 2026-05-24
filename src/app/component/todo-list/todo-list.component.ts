@@ -58,4 +58,9 @@ export class TodoListComponent implements OnInit {
         }
        }) 
   }
+
+  onTodoEdit(todo : Itodo){
+    console.log(todo)
+    this._todoService.editTodoSub$.next(todo)
+  }
 }

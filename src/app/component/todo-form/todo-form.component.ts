@@ -15,12 +15,15 @@ export class TodoFormComponent implements OnInit {
   @ViewChild('todoForm') todoForm !: NgForm
   isInEditMode:boolean = false
 
+  editTodo !: Itodo
+
   constructor(
     private _todoServices : TodosService,
     private _snackBar : SnackBarSerives
   ) { }
 
   ngOnInit(): void {
+     this.onTodoPatch()
   }
 
   // onTodoSubmit(todoForm : NgForm){
@@ -46,5 +49,43 @@ export class TodoFormComponent implements OnInit {
                  }
             })
     }
+  }
+
+  onTodoPatch(){
+    //Data Patch on Form
+    this._todoServices.editTodoSub$.subscribe({
+      next : data =>{
+        // console.log(data)
+        this.editTodo = data
+        this.isInEditMode = true;
+        this.todoForm.form.patchValue(data)
+      }
+    })
+  }
+
+  onTodoUpdate(){
+
+    if(this.todoForm.valid){
+       //Updated_OBJ with ID
+      let Updated_OBJ: Itodo = {
+        ...this.todoForm.value, 
+        todoId : this.editTodo.todoId}
+      console.log(Updated_OBJ)
+    //API CALL
+
+    this._todoServices.updateTodo(Updated_OBJ)
+         .subscribe({
+          next : res =>{
+             this._snackBar.openSnackBar(res.msg)
+             this.isInEditMode = false
+             this.todoForm.reset()
+          },
+          error : err =>{
+            this._snackBar.openSnackBar(err)
+          }
+         })
+    }
+    
+
   }
 }

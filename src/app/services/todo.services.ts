@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { IRes, Itodo, ItodoRes } from "../models/todo";
-import { Observable, of } from "rxjs";
+import { Observable, of, Subject } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -26,6 +26,8 @@ export class TodosService {
         },
 
     ]
+
+    editTodoSub$ : Subject<Itodo> = new Subject<Itodo>()
 
     fetchTodos(): Observable<Itodo[]> {
         //API call to fetch TODOs data from DB
@@ -55,6 +57,17 @@ export class TodosService {
         })
     }
 
+    //Update Todo>>
+
+    updateTodo(updateTodo : Itodo):Observable<IRes<Itodo>>{
+        let GET_INDEX = this.todoArr.findIndex(t => t.todoId === updateTodo.todoId)
+        this.todoArr[GET_INDEX] = updateTodo
+
+        return of({
+            msg : `The todo Item with id ${updateTodo.todoId} is updated successfully !!!`,
+            data : updateTodo
+        })
+    }
 }
 
 
